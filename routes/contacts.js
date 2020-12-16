@@ -22,5 +22,12 @@ router.put('/:id', (req, res) => {
   res.send('Update a contact')
 })
 
+// @route     DELETE api/contacts/:id
+// @desc      Delete a contact
+// @access    Private
+router.delete('/:id', (req, res) => { 
+  res.send('Delete a contact')
+})
+
 // export router
 module.exports = router
