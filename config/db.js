@@ -10,6 +10,7 @@ const connectDB = async () => {
       userFindAndModify: false
       // above 3 lines prevent warnings in console
     })
+    
     console.log('MongoDB Connected...')
   } catch (err) {
     console.error(err.message)
