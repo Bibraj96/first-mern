@@ -3,8 +3,12 @@
 // which is why we're using common js below
 // The code below allows us to create routes
 const express = require('express')
+const connectDB = require('./config/db')
 
 const app = express()
+
+// Connect Database
+connectDB()
 
 const PORT = process.env.PORT || 5000
 
