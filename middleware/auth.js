@@ -9,7 +9,7 @@ module.exports = function(req, res, next) {
 
   // If there isn't, send error message with 401 status
   if(!token) {
-    return req.status(401).json({ msg: 'No token, authorization denied' })
+    return res.status(401).json({ msg: 'No token, authorization denied' })
   }
 
   // If there is a token, take it out, verify it, pull out payload 
