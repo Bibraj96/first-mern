@@ -20,10 +20,30 @@ router.get('/', (req, res) => {
 router.post('/', [
   check('email', 'Please include a valid email').isEmail(),
   check('password', 'Password is required').exists()
-], (req, res) => { 
+], async (req, res) => { 
   const errors = validationResult(req);
   if(!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() })
+  }
+
+  // take email and password out of body only b/c we're logging in (don't need name)
+  const { email, password } = req.body
+
+  // Error handling for invalid email or invalid password
+  try {
+    let user = await User.findOne({ email })
+
+    if(!user) {
+      return res.status(400).json({ masg: 'Invalid Credentials' })
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password)
+
+    if(!isMatch) {
+      return res.status(400).json({ msg: 'Invalid Credentials' })
+    }
+  } catch(err) {
+
   }
 })
 
