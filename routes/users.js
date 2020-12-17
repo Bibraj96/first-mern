@@ -41,7 +41,11 @@ router.post('/', [
 
     await user.save()
 
-    res.send('User saved')
+    const payload = { // With just the id, we can access all of the contacts the user has
+      user: {
+        id: user.id
+      }
+    }
 
   } catch(err) {
     console.error(err.message)
