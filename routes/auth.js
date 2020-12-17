@@ -11,7 +11,7 @@ const User = require('../models/User')
 // @route     GET api/auth
 // @desc      Get logged in user
 // @access    Private
-router.get('/', auth, async (req, res) => { 
+router.get('/', auth, async (req, res) => { // when auth is included as the second parameter, we run the middleware, which assigns the user to req.user
   try {
     // If we send the correct token and we're logged in, the req is going to have a user object attached to it with the id, which we use below:
     const user = await User.findById(req.user.id).select('-password') // mongoose method
