@@ -8,13 +8,16 @@ const User = require('../models/User')
 // @desc      Register a user
 // @access    Public
 router.post('/', [
-  check('name','Name is required')
+  check('name','Please add a name')
     .not()
     .isEmpty(),
   check('email', 'Please include a valid email').isEmail(),
   check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6 })
 ], (req, res) => { // '/' pertains to api/users
-  res.send(req.body) // gives us data sent to the route (in this case: email, pass, and name)
+  const errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() })
+  }
 })
 
 // export router
