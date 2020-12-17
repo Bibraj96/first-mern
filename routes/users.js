@@ -11,6 +11,7 @@ const User = require('../models/User')
 // @desc      Register a user
 // @access    Public
 router.post('/', [
+  // Validations
   check('name','Please add a name')
     .not()
     .isEmpty(),
@@ -35,7 +36,8 @@ router.post('/', [
       email,
       password
     })
-
+    
+    // Create salt and hash password
     const salt = await bcrypt.genSalt(10)
     
     user.password = await bcrypt.hash(password, salt)
@@ -48,13 +50,14 @@ router.post('/', [
       }
     }
 
+    // Respond with JSON Web Token
     jwt.sign(payload, config.get('jwtSecret'), {
       expiresIn: 360000
     }, (err, token) => {
       if(err) throw err
       res.json({ token })
     })
-    
+
   } catch(err) {
     console.error(err.message)
     res.status(500).send('Server Error')
