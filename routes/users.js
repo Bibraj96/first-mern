@@ -13,13 +13,31 @@ router.post('/', [
     .isEmpty(),
   check('email', 'Please include a valid email').isEmail(),
   check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6 })
-], (req, res) => { // '/' pertains to api/users
+], async (req, res) => { // '/' pertains to api/users
   const errors = validationResult(req);
   if(!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() })
   }
 
-  res.send('passed')
+  const { name, email, password } = req.body
+
+  try {
+    let user = await User.findOne({ email: email}) // mongoose method to find a user based on a field 
+    if (user) {
+      return res.status(400).json({ msg: 'User already exists' })
+    }
+
+    user = new User({
+      name, // Using ES6 syntax; these are all email:email, etc
+      email,
+      password
+    })
+
+
+
+  } catch(err) {
+
+  }
 })
 
 // export router
