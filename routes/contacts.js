@@ -42,7 +42,7 @@ router.post('/', [auth, [
       user: req.user.id // grabbing user from auth middleware to assign a contact to the user that's logged in
     })
 
-    const contact = await new Contact.save()
+    const contact = await newContact.save()
     res.json(contact)
   } catch (err) {
     console.error(err.message)
