@@ -9,7 +9,7 @@ const Contact = require('../models/Contact')
 // @route     GET api/contacts
 // @desc      Get all users contacts
 // @access    Private
-router.get('/', auth, (req, res) => { 
+router.get('/', auth, async (req, res) => { 
   try {
     // Contacts have a user field, which is an object id, so we get the user from auth middleware to get a user and grab all of that user's contacts
     const contacts = await Contact.find({ user: req.user.id }).sort({ date: -1 }) // Most recent contacts first
