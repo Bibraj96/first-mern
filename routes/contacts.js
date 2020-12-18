@@ -67,6 +67,11 @@ router.put('/:id', auth, async (req, res) => {
     let contact = await Contact.findById(req.params.id)
 
     if(!contact) return res.status(404).json({ msg: 'Contact not found' })
+
+    // Make sure user owns contact: compare contact user to user from token
+    if(contact.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'Not Authorized' })
+    }
   } catch (err) {
     
   }
