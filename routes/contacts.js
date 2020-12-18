@@ -72,6 +72,12 @@ router.put('/:id', auth, async (req, res) => {
     if(contact.user.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'Not Authorized' })
     }
+    
+    contact = await Contact.findByIdAndUpdate(req.params.id,
+      { $set: contactFields },
+      { new: true }) // If contact doesn't exist, just create it
+
+      res.json(contact)
   } catch (err) {
     
   }
