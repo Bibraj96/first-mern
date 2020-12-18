@@ -30,6 +30,23 @@ router.post('/', [auth, [
   if(!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() })
   }
+
+  const { name, email, phone, type } = req.body
+
+  try {
+    const newContact = new Contact({
+      name,
+      email,
+      phone,
+      type,
+      user: req.user.id // grabbing user from auth middleware to assign a contact to the user that's logged in
+    })
+
+    const contact = await new Contact.save()
+    res.json(contact)
+  } catch (error) {
+    
+  }
 })
 
 // @route     PUT api/contacts/:id
