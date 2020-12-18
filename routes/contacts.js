@@ -11,10 +11,12 @@ const Contact = require('../models/Contact')
 // @access    Private
 router.get('/', auth, (req, res) => { 
   try {
-    const contacts = await Contact.find({ user: req.user.id }).sort({ date: -1 })
+    // Contacts have a user field, which is an object id, so we get the user from auth middleware to get a user and grab all of that user's contacts
+    const contacts = await Contact.find({ user: req.user.id }).sort({ date: -1 }) // Most recent contacts first
     res.json(contacts)
-  } catch (error) {
-    
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
   }
 })
 
