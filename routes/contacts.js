@@ -97,12 +97,11 @@ router.delete('/:id', (req, res) => {
     if(contact.user.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'Not Authorized' })
     }
-    
-    contact = await Contact.findByIdAndUpdate(req.params.id,
-      { $set: contactFields },
-      { new: true }) // If contact doesn't exist, just create it
 
-      res.json(contact)
+    // Use remove because delete is deprecated
+    await Contact.findByIdAndRemove(req.params.id)
+
+    res.json({ msg: 'Contact removed' })
   } catch (err) {
     console.error(err.message)
     res.status(500).send('Server Error')
