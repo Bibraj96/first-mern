@@ -88,7 +88,25 @@ router.put('/:id', auth, async (req, res) => {
 // @desc      Delete a contact
 // @access    Private
 router.delete('/:id', (req, res) => { 
-  res.send('Delete a contact')
+  try {
+    let contact = await Contact.findById(req.params.id)
+
+    if(!contact) return res.status(404).json({ msg: 'Contact not found' })
+
+    // Make sure user owns contact: compare contact user to user from token
+    if(contact.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'Not Authorized' })
+    }
+    
+    contact = await Contact.findByIdAndUpdate(req.params.id,
+      { $set: contactFields },
+      { new: true }) // If contact doesn't exist, just create it
+
+      res.json(contact)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
 })
 
 // export router
