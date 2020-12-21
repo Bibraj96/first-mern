@@ -43,7 +43,7 @@ const ContactState = props => {
 
   // Add Contact
   const addContact = contact => {
-    contact.id = uuid.v4()
+    contact.id = 11
     dispatch({ type: ADD_CONTACT, payload: contact })
   }
 
@@ -65,7 +65,9 @@ const ContactState = props => {
     // Anything we want to be able to access from other comps including state and other actions need to go in here.
     // We get state from userReducer and use it to get all of the contacts for now
     value={{
-      contacts: state.contacts
+      contacts: state.contacts,
+      addContact
+
     }}>
       { props.children }
     </ContactContext.Provider>
