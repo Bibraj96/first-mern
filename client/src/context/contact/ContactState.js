@@ -69,7 +69,8 @@ const ContactState = props => {
     // We get state from userReducer and use it to get all of the contacts for now
     value={{
       contacts: state.contacts,
-      addContact
+      addContact,
+      deleteContact
 
     }}>
       { props.children }
