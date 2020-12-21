@@ -40,4 +40,32 @@ const ContactState = props => {
   }
 
   const [state, dispatch] = useReducer(contactReducer, initialState)
+
+  // Add Contact
+
+  // Delete Contact 
+
+  // Set Current Contact
+
+  // Clear Current Contact
+
+  // Update Contact
+
+  // Filter Contacts
+
+  // Clear Filter
+
+  // We need to wrap our entire app with this context
+  return (
+    <ContactContext.Provider
+    // Anything we want to be able to access from other comps including state and other actions need to go in here.
+    // We get state from userReducer and use it to get all of the contacts for now
+    value={{
+      contacts: state.contacts
+    }}>
+      { props.children }
+    </ContactContext.Provider>
+  )
 }
+
+export default ContactState
