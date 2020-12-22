@@ -55,7 +55,10 @@ const ContactState = props => {
   }
 
   // Set Current Contact
-
+  const setCurrent = contact => {
+    dispatch({ type: SET_CURRENT, payload: contact })
+  }
+  
   // Clear Current Contact
 
   // Update Contact
