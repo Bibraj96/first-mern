@@ -28,7 +28,7 @@ export default (state, action) => {
     case CLEAR_CURRENT:
       return {
         ...state,
-        contacts: state.contacts.filter(contact => contact.id !== action.payload)
+        current: null
       }
     default:
       return state;
