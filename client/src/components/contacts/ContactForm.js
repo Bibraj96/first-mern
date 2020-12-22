@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import ContactContext from '../../context/contact/contactContext'
 
 const ContactForm = () => {
@@ -7,6 +7,12 @@ const ContactForm = () => {
   const contactContext = useContext(ContactContext)
 
   const { addContact, current } = contactContext
+
+  useEffect(() => {
+    if(current !== null) {
+      setContact(current)
+    }
+  })
 
   const [contact, setContact] = useState({
     name: '',
