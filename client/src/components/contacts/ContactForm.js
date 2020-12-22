@@ -3,8 +3,10 @@ import ContactContext from '../../context/contact/contactContext'
 
 const ContactForm = () => {
 
-  // We need this to use ADD_CONTACT
+  // We need this to use ADD_CONTACT and current
   const contactContext = useContext(ContactContext)
+
+  const { addContact, current } = contactContext
 
   const [contact, setContact] = useState({
     name: '',
@@ -19,7 +21,7 @@ const ContactForm = () => {
 
   const onSubmit = e => {
     e.preventDefault()
-    contactContext.addContact(contact)
+    addContact(contact)
     setContact({
       name: '',
       email: '',
