@@ -78,8 +78,9 @@ const ContactState = props => {
       contacts: state.contacts,
       current: state.current,
       addContact,
-      deleteContact
-
+      deleteContact,
+      setCurrent,
+      clearCurrent
     }}>
       { props.children }
     </ContactContext.Provider>
