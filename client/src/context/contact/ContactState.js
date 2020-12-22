@@ -36,7 +36,9 @@ const ContactState = props => {
         phone: '333-333-3333',
         type: 'professional'
       }
-    ]
+    ],
+    // When we click edit, whatever contact we want to edit will be put into current (below)
+    current: null
   }
 
   const [state, dispatch] = useReducer(contactReducer, initialState)
