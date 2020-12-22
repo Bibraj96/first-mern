@@ -6,7 +6,7 @@ const ContactForm = () => {
   // We need this to use ADD_CONTACT and current
   const contactContext = useContext(ContactContext)
 
-  const { addContact, current } = contactContext
+  const { addContact, clearCurrent, current } = contactContext
 
   useEffect(() => {
     if(current !== null) {
@@ -41,6 +41,10 @@ const ContactForm = () => {
       phone: '',
       type: 'personal'
     })
+  }
+
+  const clearAll = () => {
+    clearCurrent()
   }
 
   return (
