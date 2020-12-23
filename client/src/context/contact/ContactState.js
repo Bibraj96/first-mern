@@ -38,7 +38,8 @@ const ContactState = props => {
       }
     ],
     // When we click edit, whatever contact we want to edit will be put into current (below)
-    current: null
+    current: null,
+    filtered: null
   }
 
   const [state, dispatch] = useReducer(contactReducer, initialState)
@@ -69,8 +70,14 @@ const ContactState = props => {
   }
 
   // Filter Contacts
+  const filterContacts = text => {
+    dispatch({ type: FILTER_CONTACTS, payload: text })
+  }
 
   // Clear Filter
+  const clearCurrent = () => {
+    dispatch({ type: CLEAR_FILTER })
+  }
 
   // We need to wrap our entire app with this context
   return (
