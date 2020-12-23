@@ -75,7 +75,7 @@ const ContactState = props => {
   }
 
   // Clear Filter
-  const clearCurrent = () => {
+  const clearFilter = () => {
     dispatch({ type: CLEAR_FILTER })
   }
 
