@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import ContactItem from './ContactItem'
 import ContactContext from '../../context/contact/contactContext'
 
@@ -17,7 +18,18 @@ const Contacts = () => {
     // If there is, map through and show contact item
     // If there isn't, show the contacts
     <>
-      {filtered !== null ? filtered.map(contact => (<ContactItem key={contact.id} contact={contact} />)) : contacts.map(contact => <ContactItem key={contact.id} contact={contact} />)}
+      <TransitionGroup>
+        {filtered !== null 
+          ? filtered.map(contact => (
+            <CSSTransition>
+              <ContactItem key={contact.id} contact={contact} />
+            </CSSTransition>
+          )) 
+          : contacts.map(contact => (
+            <ContactItem key={contact.id} contact={contact} />
+          ))
+        }
+      </TransitionGroup>
     </>
   )
 }
