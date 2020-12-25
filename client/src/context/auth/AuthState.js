@@ -19,66 +19,38 @@ const authState = props => {
     // Tells us if a user is logged in
     isAuthenticated: null,
     loading: true,
+    user: null,
     error: null
   }
 
-  const [state, dispatch] = useReducer(contactReducer, initialState)
+  const [state, dispatch] = useReducer(authReducer, initialState)
 
-  // Add Contact
-  const addContact = contact => {
-    contact.id = 11
-    dispatch({ type: ADD_CONTACT, payload: contact })
-  }
+  // Load User
 
-  // Delete Contact 
-  const deleteContact = id => {
-    dispatch({ type: DELETE_CONTACT, payload: id })
-  }
+  // Register User
 
-  // Set Current Contact
-  const setCurrent = contact => {
-    dispatch({ type: SET_CURRENT, payload: contact })
-  }
+  // Login User
 
-  // Clear Current Contact
-  const clearCurrent = () => {
-    dispatch({ type: CLEAR_CURRENT })
-  }
-  // Update Contact
-  const updateContact = contact => {
-    dispatch({ type: UPDATE_CONTACT, payload: contact })
-  }
+  // Logout
 
-  // Filter Contacts
-  const filterContacts = text => {
-    dispatch({ type: FILTER_CONTACTS, payload: text })
-  }
+  // Clear Errors
 
-  // Clear Filter
-  const clearFilter = () => {
-    dispatch({ type: CLEAR_FILTER })
-  }
 
   // We need to wrap our entire app with this context
   return (
-    <ContactContext.Provider
+    <AuthContext.Provider
     // Anything we want to be able to access from other comps including state and other actions need to go in here.
     // We get state from userReducer and use it to get all of the contacts for now
     value={{
-      contacts: state.contacts,
-      current: state.current,
-      filtered: state.filtered,
-      addContact,
-      deleteContact,
-      setCurrent,
-      clearCurrent,
-      updateContact,
-      filterContacts,
-      clearFilter
+      token: state.token,
+      isAuthenticated: state.isAuthenticated,
+      loading: state.loading,
+      user: state.user,
+      error: state.error,
     }}>
       { props.children }
-    </ContactContext.Provider>
+    </AuthContext.Provider>
   )
 }
 
-export default ContactState
+export default AuthState
