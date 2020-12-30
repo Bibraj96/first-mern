@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react'
+import uuid from 'uuid'
 import AlertContext from './alertContext'
 import alertReducer from './alertReducer'
 import {
@@ -10,16 +11,16 @@ const AlertState = props => {
 
   const [state, dispatch] = useReducer(alertReducer, initialState)
 
-  // Load User
+  // Set Alert
+  const setAlert = (msg, type, timeout = 5000) => {
+    const id = uuid.v4()
+    dispatch({
+      type: SET_ALERT,
+      payload: { msg, type, id }
+    })
 
-  // Register User
-
-  // Login User
-
-  // Logout
-
-  // Clear Errors
-
+    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), timeout)
+  }
 
   // We need to wrap our entire app with this context
   return (
